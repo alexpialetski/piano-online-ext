@@ -1,4 +1,4 @@
-import { PianoChromeMessage } from "../types";
+import { PianoChromeMessage } from "../types/messages";
 import { MessageHandler, MiddleWare } from "./types";
 
 const senderMiddleware =

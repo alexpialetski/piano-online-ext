@@ -3,6 +3,7 @@ module.exports = {
     configure: (webpackConfig, { env, paths }) => {
       return {
         ...webpackConfig,
+        mode: "development",
         entry: {
           main: [
             env === "development" &&

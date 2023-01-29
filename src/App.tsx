@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 import { TabPanel } from "./components";
-import { SecondInterval } from "./views";
+import { SecondIntervalLesson } from "./views";
 
 function a11yProps(index: number) {
   return {
@@ -50,7 +50,7 @@ export const App = (): JSX.Element => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <SecondInterval />
+        <SecondIntervalLesson />
       </TabPanel>
     </Box>
   );

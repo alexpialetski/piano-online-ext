@@ -1,4 +1,4 @@
-import { IntervalType } from "../types";
+import { IntervalPlayType } from "../types/music";
 import { KeyboardEventType } from "./types";
 
 export const getKeyBoardEvent = (type: KeyboardEventType, key: string) =>
@@ -16,7 +16,7 @@ export const pressPianoKey = (key: string) =>
 
 export const pressInterval = (
   notes: string[],
-  intervalType: IntervalType
+  intervalType: IntervalPlayType
 ): Promise<void> =>
   notes.reduce(
     (accPromise, note, index) =>

@@ -1,4 +1,4 @@
-import { PopupOpenedMessage } from "../../types";
+import { PopupOpenedMessage } from "../../types/messages";
 import {
   messageTypeMiddleware,
   pipeMiddleware,
@@ -8,7 +8,7 @@ import {
 const popupOpenedHandler = pipeMiddleware(
   extensionSenderMiddleware(),
   messageTypeMiddleware<PopupOpenedMessage>("POPUP_OPENED")
-)((message, _, response) => {
+)((_message, _sender, response) => {
   response();
 });
 

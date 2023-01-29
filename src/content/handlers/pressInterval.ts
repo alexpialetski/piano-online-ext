@@ -1,5 +1,5 @@
 import { pressInterval } from "../../piano/utils";
-import { PressIntervalMessage } from "../../types";
+import { PressIntervalMessage } from "../../types/messages";
 import {
   messageTypeMiddleware,
   pipeMiddleware,
@@ -9,7 +9,7 @@ import {
 const pressIntervalHandler = pipeMiddleware(
   extensionSenderMiddleware(),
   messageTypeMiddleware<PressIntervalMessage>("PRESS_INTERVAL")
-)((message, _, response) => {
+)((message, _sender, response) => {
   pressInterval(message.data.keys, message.data.intervalType).then(response);
 });
 

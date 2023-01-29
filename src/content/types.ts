@@ -1,5 +1,5 @@
 import { MessageResponse } from "../chrome";
-import { PianoChromeMessage } from "../types";
+import { PianoChromeMessage } from "../types/messages";
 
 export type MessageHandler<
   TMessage extends PianoChromeMessage = PianoChromeMessage

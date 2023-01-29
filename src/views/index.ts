@@ -1,1 +1,1 @@
-export * from "./SecondInterval";
+export * from "./SecondIntervalLesson";

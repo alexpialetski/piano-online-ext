@@ -1,12 +1,11 @@
-import { CommonMessage } from "./chrome";
-
-export type IntervalType = "harmonic" | "melodic";
+import { CommonMessage } from "../chrome";
+import { IntervalPlayType } from "./music";
 
 export type PressIntervalMessage = CommonMessage<
   "PRESS_INTERVAL",
   {
     keys: string[];
-    intervalType: "harmonic" | "melodic";
+    intervalType: IntervalPlayType;
   },
   void
 >;
