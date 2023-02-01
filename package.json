@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.206"
+    "@types/chrome": "^0.0.206",
+    "react-app-rewire-alias": "^1.1.7"
   }
 }
