@@ -1,8 +1,25 @@
 import { IntervalPlayType } from "../types/music";
 import { KeyboardEventType } from "./types";
 
+const getCharCode = (key: string): number => {
+  switch (key) {
+    case ",":
+      return 188;
+    case ".":
+      return 190;
+    case ";":
+      return 186;
+    case "/":
+      return 191;
+    case "'":
+      return 222;
+    default:
+      return key.charCodeAt(0);
+  }
+};
+
 export const getKeyBoardEvent = (type: KeyboardEventType, key: string) =>
-  new KeyboardEvent(type, { keyCode: key.charCodeAt(0) });
+  new KeyboardEvent(type, { keyCode: getCharCode(key) });
 
 export const pressPianoKey = (key: string) =>
   new Promise<void>((res) => {

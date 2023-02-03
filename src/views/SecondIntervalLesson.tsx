@@ -1,28 +1,12 @@
 import { MajorMinorInterval } from "~/modules/MajorMinorInterval";
-import { KEYS } from "~/piano/constants";
-import { IntervalCombination } from "~/types/intervalCombination";
+import { IntervalCombinationsConstructor } from "~/piano/IntervalCombinationsConstructor";
 
-const SECOND_INTERVAL = {
-  getAllPossibleCombinations: (): IntervalCombination[] => {
-    const result: IntervalCombination[] = [];
+const secondInterval = new IntervalCombinationsConstructor("second");
 
-    for (let i = 1; i < KEYS.length; ++i) {
-      result.push(
-        new IntervalCombination("second", "minor", [KEYS[i - 1], KEYS[i]])
-      );
-    }
-
-    for (let i = 2; i < KEYS.length; ++i) {
-      result.push(
-        new IntervalCombination("second", "major", [KEYS[i - 2], KEYS[i]])
-      );
-    }
-
-    return result;
-  },
-};
-
-const COMBINATIONS = SECOND_INTERVAL.getAllPossibleCombinations();
+const COMBINATIONS = secondInterval.getAllPossibleCombinations([
+  { color: "major", distance: 2, reverse: false },
+  { color: "minor", distance: 1, reverse: false },
+]);
 
 export const SecondIntervalLesson = (): JSX.Element => (
   <MajorMinorInterval combinations={COMBINATIONS} />
