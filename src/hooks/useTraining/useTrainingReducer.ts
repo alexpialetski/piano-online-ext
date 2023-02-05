@@ -21,17 +21,43 @@ const isCombinationInsideOfQueue = <T extends Combination>(
 const calculateNextQueueAndCombination = (
   state: TrainingReducerState
 ): Pick<TrainingReducerState, "currentCombination" | "currentQueue"> => {
-  if (state.struggleCombinations.length && state.currentQueue === "overall") {
-    return {
-      currentCombination: getRandomCombination(state.struggleCombinations),
-      currentQueue: "struggle",
-    };
-  } else {
-    return {
-      currentCombination: getRandomCombination(state.queueCombinations),
-      currentQueue: "overall",
-    };
+  const overallCombination = getRandomCombination(state.queueCombinations);
+  const struggleCombination = getRandomCombination(state.struggleCombinations);
+
+  if (state.currentQueue === "overall") {
+    if (struggleCombination) {
+      return {
+        currentCombination: getRandomCombination(state.struggleCombinations),
+        currentQueue: "struggle",
+      };
+    }
+    if (overallCombination) {
+      return {
+        currentCombination: getRandomCombination(state.queueCombinations),
+        currentQueue: "overall",
+      };
+    }
   }
+
+  if (state.currentQueue === "struggle") {
+    if (overallCombination) {
+      return {
+        currentCombination: getRandomCombination(state.queueCombinations),
+        currentQueue: "overall",
+      };
+    }
+    if (struggleCombination) {
+      return {
+        currentCombination: getRandomCombination(state.struggleCombinations),
+        currentQueue: "struggle",
+      };
+    }
+  }
+
+  return {
+    currentCombination: undefined,
+    currentQueue: state.currentQueue,
+  };
 };
 
 export const entityProviderReducer: Reducer<
@@ -55,7 +81,7 @@ export const entityProviderReducer: Reducer<
         return state;
       }
 
-      let intermidiateState: TrainingReducerState;
+      let intermidiateState: TrainingReducerState = state;
 
       if (state.currentQueue === "overall") {
         intermidiateState = {
@@ -66,13 +92,15 @@ export const entityProviderReducer: Reducer<
           ),
         };
       } else {
-        intermidiateState = {
-          ...state,
-          struggleCombinations: removeFromCombination(
-            state.struggleCombinations,
-            state.currentCombination
-          ),
-        };
+        if (state.mode === "elimination") {
+          intermidiateState = {
+            ...state,
+            struggleCombinations: removeFromCombination(
+              state.struggleCombinations,
+              state.currentCombination
+            ),
+          };
+        }
       }
 
       return {
@@ -106,6 +134,13 @@ export const entityProviderReducer: Reducer<
       return {
         ...intermidiateState,
         ...calculateNextQueueAndCombination(state),
+      };
+    }
+
+    case "CHANGE_MODE": {
+      return {
+        ...state,
+        mode: payload,
       };
     }
 

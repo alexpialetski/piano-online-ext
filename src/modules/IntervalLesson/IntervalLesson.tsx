@@ -1,12 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
 import { PressIntervalMessage } from "~/types/messages";
 import { chromeSendMessage } from "~/chrome";
 import { useTraining } from "~/hooks/useTraining";
 import { Combination } from "~/types/combination";
+import { ModeControls } from "./ModeControls";
+import { QueueIndicator } from "./QueueIndicator";
 
 export type IntervalLessonProps = {
   combinations: Combination[];
@@ -62,6 +63,7 @@ export const IntervalLesson = ({
     <Box
       display="flex"
       flexDirection="column"
+      justifyContent="center"
       width="100%"
       height="100%"
       alignItems="center"
@@ -78,14 +80,11 @@ export const IntervalLesson = ({
       )}
       {isEnabled && (
         <>
-          <Typography
-            style={{ fontWeight: state.currentQueue === "overall" ? 800 : 400 }}
-          >{`Overall: ${state.queueCombinations.length} out of ${state.initialCombinations.length}`}</Typography>
-          <Typography
-            style={{
-              fontWeight: state.currentQueue === "struggle" ? 800 : 400,
-            }}
-          >{`Struggle: ${state.struggleCombinations.length}`}</Typography>
+          <ModeControls
+            changeMode={actions.changeMode}
+            currentMode={state.mode}
+          />
+          <QueueIndicator state={state} />
           <Button
             variant="contained"
             disabled={isInProgress}

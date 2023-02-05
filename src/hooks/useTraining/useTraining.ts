@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo } from "react";
-import { Combination } from "../../types/combination";
+
+import { Combination } from "~/types/combination";
+
 import { useTrainingReducer } from "./useTrainingReducer";
+import { Mode } from "./types";
 
 export type UseTrainingParams<T extends Combination> = {
   possibleCombinations: T[];
@@ -30,9 +33,14 @@ export const useTraining = <T extends Combination>({
     [dispatch]
   );
 
+  const changeMode = useCallback(
+    (mode: Mode) => dispatch({ type: "CHANGE_MODE", payload: mode }),
+    [dispatch]
+  );
+
   const actions = useMemo(
-    () => ({ succeedCurrent, failCurrent }),
-    [succeedCurrent, failCurrent]
+    () => ({ succeedCurrent, failCurrent, changeMode }),
+    [succeedCurrent, failCurrent, changeMode]
   );
 
   return { state, actions };

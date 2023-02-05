@@ -3,7 +3,10 @@ import { Combination } from "../../types/combination";
 type TrainingAction =
   | "INITIALIZE_COMBINATIONS"
   | "FAIL_CURRENT_COMBINATION"
-  | "SUCCEED_CURRENT_COMBINATION";
+  | "SUCCEED_CURRENT_COMBINATION"
+  | "CHANGE_MODE";
+
+export type Mode = "elimination" | "mistakes";
 
 type Action<TAction extends TrainingAction, TPayload> = {
   type: TAction;
@@ -25,10 +28,13 @@ export type SucceedCurrrentCombDispatchAction = Action<
   void
 >;
 
+export type ChangeModeDispatchAction = Action<"CHANGE_MODE", Mode>;
+
 export type TrainingReducerAction =
   | InitCombDispatchAction
   | FailCurrentCombDispatchAction
-  | SucceedCurrrentCombDispatchAction;
+  | SucceedCurrrentCombDispatchAction
+  | ChangeModeDispatchAction;
 
 export type TrainingReducerState = {
   initialCombinations: Combination[];
@@ -36,4 +42,5 @@ export type TrainingReducerState = {
   struggleCombinations: Combination[];
   currentCombination: Combination | undefined;
   currentQueue: "overall" | "struggle";
+  mode: Mode;
 };

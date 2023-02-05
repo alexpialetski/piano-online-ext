@@ -6,4 +6,5 @@ export const INITIAL_STATE: TrainingReducerState = {
   struggleCombinations: [],
   currentCombination: undefined,
   currentQueue: "overall",
+  mode: "mistakes",
 };
